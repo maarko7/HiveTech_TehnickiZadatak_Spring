@@ -9,9 +9,11 @@ import java.util.Optional;
 
 @Repository
 public interface PhonebookRepository extends JpaRepository<PhonebookUser, Long> {
+    Optional<PhonebookUser> findByOib(String oib);
+
     Optional<List<PhonebookUser>> findByFirstName(String firstName);
 
     Optional<List<PhonebookUser>> findByLastName(String lastName);
 
-    Optional<PhonebookUser> findByPhoneNumber(Long phoneNumber);
+    Optional<PhonebookUser> findByPhoneNumber(String phoneNumber);
 }

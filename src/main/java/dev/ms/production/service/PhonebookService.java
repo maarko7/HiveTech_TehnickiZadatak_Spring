@@ -12,11 +12,13 @@ public interface PhonebookService {
 
     Optional<PhonebookUser> getUserById(Long userId);
 
+    Optional<PhonebookUser> getUserByOib(String oib);
+
     Optional<List<PhonebookUser>> getUserByFirstName(String firstName);
 
     Optional<List<PhonebookUser>> getUserByLastName(String lastName);
 
-    Optional<PhonebookUser> getUserByPhoneNumber(Long phoneNumber);
+    Optional<PhonebookUser> getUserByPhoneNumber(String phoneNumber);
 
     PhonebookUser updateUser(Long userId, PhonebookUser user);
 

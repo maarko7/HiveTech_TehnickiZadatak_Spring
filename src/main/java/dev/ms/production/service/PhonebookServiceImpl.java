@@ -32,6 +32,11 @@ public class PhonebookServiceImpl implements PhonebookService{
     }
 
     @Override
+    public Optional<PhonebookUser> getUserByOib(String  oib) {
+        return phonebookRepository.findByOib(oib);
+    }
+
+    @Override
     public Optional<List<PhonebookUser>> getUserByFirstName(String firstName) {
         return phonebookRepository.findByFirstName(firstName);
     }
@@ -42,7 +47,7 @@ public class PhonebookServiceImpl implements PhonebookService{
     }
 
     @Override
-    public Optional<PhonebookUser> getUserByPhoneNumber(Long phoneNumber) {
+    public Optional<PhonebookUser> getUserByPhoneNumber(String phoneNumber) {
         return phonebookRepository.findByPhoneNumber(phoneNumber);
     }
 

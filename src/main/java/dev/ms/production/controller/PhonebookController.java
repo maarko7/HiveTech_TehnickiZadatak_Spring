@@ -27,19 +27,14 @@ public class PhonebookController {
         return phonebookService.addUser(user);
     }
 
-//    @GetMapping("/user/{id}")
-//    public ResponseEntity<PhonebookUser> getUserById(@PathVariable Long id) {
-//        PhonebookUser user = phonebookService.getUserById(id);
-//        if (user != null) {
-//            return ResponseEntity.ok(user);
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
-
     @GetMapping("/user/{id}")
     public Optional<PhonebookUser> getUserById(@PathVariable Long id) {
         return phonebookService.getUserById(id);
+    }
+
+    @GetMapping("user/oib/{oib}")
+    public Optional<PhonebookUser> getUserByOib(@PathVariable String  oib) {
+        return phonebookService.getUserByOib(oib);
     }
 
     @GetMapping("/user/firstname/{firstName}")
@@ -53,7 +48,7 @@ public class PhonebookController {
     }
 
     @GetMapping("/user/phonenumber/{phoneNumber}")
-    public Optional<PhonebookUser> getUserByPhoneNumber(@PathVariable Long phoneNumber) {
+    public Optional<PhonebookUser> getUserByPhoneNumber(@PathVariable String phoneNumber) {
         return phonebookService.getUserByPhoneNumber(phoneNumber);
     }
 
