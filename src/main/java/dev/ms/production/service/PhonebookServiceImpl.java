@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -26,28 +27,53 @@ public class PhonebookServiceImpl implements PhonebookService{
     }
 
     @Override
-    public PhonebookUser getUserById(Long userId) {
-        Optional<PhonebookUser> userOptional = phonebookRepository.findById(userId);
-        return userOptional.orElse(null);
+    public Optional<PhonebookUser> getUserById(Long userId) {
+        return phonebookRepository.findById(userId);
+    }
+
+    @Override
+    public Optional<List<PhonebookUser>> getUserByFirstName(String firstName) {
+        return phonebookRepository.findByFirstName(firstName);
+    }
+
+    @Override
+    public Optional<List<PhonebookUser>> getUserByLastName(String lastName) {
+        return phonebookRepository.findByLastName(lastName);
+    }
+
+    @Override
+    public Optional<PhonebookUser> getUserByPhoneNumber(Long phoneNumber) {
+        return phonebookRepository.findByPhoneNumber(phoneNumber);
     }
 
     @Override
     public PhonebookUser updateUser(Long userId, PhonebookUser user) {
-        Optional<PhonebookUser> userOptional = phonebookRepository.findById(userId);
-        if (userOptional.isPresent()) {
-            PhonebookUser existingUser = userOptional.get();
-            existingUser.setFirstName(user.getFirstName());
-            existingUser.setLastName(user.getLastName());
-            existingUser.setCity(user.getCity());
-            existingUser.setPhoneNumber(user.getPhoneNumber());
+        PhonebookUser userDB = phonebookRepository.findById(userId).get();
 
-            return phonebookRepository.save(existingUser);
+        if (Objects.nonNull(user.getFirstName())
+                && !"".equalsIgnoreCase(user.getFirstName())) {
+            userDB.setFirstName(user.getFirstName());
         }
-        return null;
+
+        if (Objects.nonNull(user.getLastName())
+                && !"".equalsIgnoreCase(user.getLastName())) {
+            userDB.setLastName(user.getLastName());
+        }
+
+        if (Objects.nonNull(user.getCity())
+                && !"".equalsIgnoreCase(user.getCity())) {
+            userDB.setCity(user.getCity());
+        }
+
+        if (Objects.nonNull(user.getPhoneNumber())) {
+            userDB.setPhoneNumber(user.getPhoneNumber());
+        }
+
+        return phonebookRepository.save(userDB);
     }
 
     @Override
     public void deleteUser(Long userId) {
-
+        phonebookRepository.deleteById(userId);
     }
 }
