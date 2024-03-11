@@ -53,8 +53,8 @@ public class PhonebookController {
     }
 
     @PutMapping("/user/{id}")
-    public PhonebookUser updateUser(@PathVariable Long userId, @RequestBody PhonebookUser user) {
-        return phonebookService.updateUser(userId, user);
+    public PhonebookUser updateUser(@PathVariable Long id, @RequestBody PhonebookUser user) {
+        return phonebookService.updateUser(id, user);
     }
 
     @DeleteMapping("/user/{id}")
